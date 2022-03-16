@@ -162,14 +162,7 @@ func NewRootCmd(
 
 			customAppTemplate, customAppConfig := initAppConfig()
 
-			if err := server.InterceptConfigsPreRunHandler(cmd, customAppTemplate, customAppConfig); err != nil {
-				return err
-
-			}
-
-			startProxyForTunneledPeers(initClientCtx, cmd)
-
-			return nil
+			return server.InterceptConfigsPreRunHandler(cmd, customAppTemplate, customAppConfig)
 		},
 	}
 

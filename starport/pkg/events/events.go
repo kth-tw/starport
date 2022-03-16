@@ -2,75 +2,41 @@
 // for others to consume and display to end users in meaningful ways.
 package events
 
-import (
-	"fmt"
+import "fmt"
 
-	"github.com/gookit/color"
-)
+// Event represents a state.
+type Event struct {
+	// Status shows the current status of event.
+	status Status
 
-type (
-	// Event represents a state.
-	Event struct {
-		// Description of the state.
-		Description string
+	// Description of the state.
+	Description string
+}
 
-		// Status shows the current status of event.
-		Status Status
-
-		// TextColor of the text.
-		TextColor color.Color
-
-		// Icon of the text.
-		Icon string
-	}
-
-	// Status shows if state is ongoing or completed.
-	Status int
-
-	// Option event options
-	Option func(*Event)
-)
+// Status shows if state is ongoing or completed.
+type Status int
 
 const (
 	StatusOngoing Status = iota
 	StatusDone
 )
 
-// TextColor sets the text color
-func TextColor(c color.Color) Option {
-	return func(e *Event) {
-		e.TextColor = c
-	}
-}
-
-// Icon sets the text icon prefix
-func Icon(icon string) Option {
-	return func(e *Event) {
-		e.Icon = icon
-	}
-}
-
 // New creates a new event with given config.
-func New(status Status, description string, options ...Option) Event {
-	ev := Event{Status: status, Description: description}
-	for _, applyOption := range options {
-		applyOption(&ev)
-	}
-	return ev
+func New(status Status, description string) Event {
+	return Event{status, description}
 }
 
 // IsOngoing checks if state change that triggered this event is still ongoing.
 func (e Event) IsOngoing() bool {
-	return e.Status == StatusOngoing
+	return e.status == StatusOngoing
 }
 
 // Text returns the text state of event.
 func (e Event) Text() string {
-	text := e.Description
 	if e.IsOngoing() {
-		text = fmt.Sprintf("%s...", e.Description)
+		return fmt.Sprintf("%s...", e.Description)
 	}
-	return e.TextColor.Render(text)
+	return e.Description
 }
 
 // Bus is a send/receive event bus.

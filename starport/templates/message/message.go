@@ -7,17 +7,13 @@ import (
 	"github.com/gobuffalo/packd"
 	"github.com/gobuffalo/plush"
 	"github.com/gobuffalo/plushgen"
-
 	"github.com/tendermint/starport/starport/templates/field/plushhelpers"
 	"github.com/tendermint/starport/starport/templates/testutil"
 )
 
 var (
-	//go:embed stargate/message/* stargate/message/**/*
-	fsStargateMessage embed.FS
-
-	//go:embed stargate/simapp/* stargate/simapp/**/*
-	fsStargateSimapp embed.FS
+	//go:embed stargate/* stargate/**/*
+	fsStargate embed.FS
 )
 
 func Box(box packd.Walker, opts *Options, g *genny.Generator) error {
@@ -41,5 +37,9 @@ func Box(box packd.Walker, opts *Options, g *genny.Generator) error {
 	g.Transformer(genny.Replace("{{msgName}}", opts.MsgName.Snake))
 
 	// Create the 'testutil' package with the test helpers
-	return testutil.Register(g, opts.AppPath)
+	if err := testutil.Register(g, opts.AppPath); err != nil {
+		return err
+	}
+
+	return nil
 }

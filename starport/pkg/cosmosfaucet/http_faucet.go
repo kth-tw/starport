@@ -6,7 +6,6 @@ import (
 	"net/http"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
-
 	"github.com/tendermint/starport/starport/pkg/xhttp"
 )
 

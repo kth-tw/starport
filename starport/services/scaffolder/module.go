@@ -11,7 +11,6 @@ import (
 	"strings"
 
 	"github.com/gobuffalo/genny"
-
 	"github.com/tendermint/starport/starport/pkg/cmdrunner"
 	"github.com/tendermint/starport/starport/pkg/cmdrunner/step"
 	appanalysis "github.com/tendermint/starport/starport/pkg/cosmosanalysis/app"

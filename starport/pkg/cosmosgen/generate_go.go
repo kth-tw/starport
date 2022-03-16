@@ -6,7 +6,6 @@ import (
 
 	"github.com/otiai10/copy"
 	"github.com/pkg/errors"
-
 	"github.com/tendermint/starport/starport/pkg/protoanalysis"
 	"github.com/tendermint/starport/starport/pkg/protoc"
 )

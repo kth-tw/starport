@@ -12,7 +12,6 @@ import (
 
 	"github.com/cenkalti/backoff"
 	"github.com/pkg/errors"
-
 	"github.com/tendermint/starport/starport/pkg/chaincmd"
 	"github.com/tendermint/starport/starport/pkg/cmdrunner/step"
 	"github.com/tendermint/starport/starport/pkg/cosmosver"

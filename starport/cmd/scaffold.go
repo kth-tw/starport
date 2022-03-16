@@ -5,7 +5,6 @@ import (
 
 	"github.com/spf13/cobra"
 	flag "github.com/spf13/pflag"
-
 	"github.com/tendermint/starport/starport/pkg/clispinner"
 	"github.com/tendermint/starport/starport/pkg/placeholder"
 	"github.com/tendermint/starport/starport/services/scaffolder"
@@ -13,11 +12,10 @@ import (
 
 // flags related to component scaffolding
 const (
-	flagModule       = "module"
-	flagNoMessage    = "no-message"
-	flagNoSimulation = "no-simulation"
-	flagResponse     = "response"
-	flagDescription  = "desc"
+	flagModule      = "module"
+	flagNoMessage   = "no-message"
+	flagResponse    = "response"
+	flagDescription = "desc"
 )
 
 // NewScaffold returns a command that groups scaffolding related sub commands.
@@ -55,13 +53,12 @@ func scaffoldType(
 	kind scaffolder.AddTypeKind,
 ) error {
 	var (
-		typeName          = args[0]
-		fields            = args[1:]
-		moduleName        = flagGetModule(cmd)
-		withoutMessage    = flagGetNoMessage(cmd)
-		withoutSimulation = flagGetNoSimulation(cmd)
-		signer            = flagGetSigner(cmd)
-		appPath           = flagGetPath(cmd)
+		typeName       = args[0]
+		fields         = args[1:]
+		moduleName     = flagGetModule(cmd)
+		withoutMessage = flagGetNoMessage(cmd)
+		signer         = flagGetSigner(cmd)
+		appPath        = flagGetPath(cmd)
 	)
 
 	var options []scaffolder.AddTypeOption
@@ -74,13 +71,8 @@ func scaffoldType(
 	}
 	if withoutMessage {
 		options = append(options, scaffolder.TypeWithoutMessage())
-	} else {
-		if signer != "" {
-			options = append(options, scaffolder.TypeWithSigner(signer))
-		}
-		if withoutSimulation {
-			options = append(options, scaffolder.TypeWithoutSimulation())
-		}
+	} else if signer != "" {
+		options = append(options, scaffolder.TypeWithSigner(signer))
 	}
 
 	s := clispinner.New().SetText("Scaffolding...")
@@ -113,7 +105,6 @@ func flagSetScaffoldType() *flag.FlagSet {
 	f := flag.NewFlagSet("", flag.ContinueOnError)
 	f.String(flagModule, "", "Module to add into. Default is app's main module")
 	f.Bool(flagNoMessage, false, "Disable CRUD interaction messages scaffolding")
-	f.Bool(flagNoSimulation, false, "Disable CRUD simulation scaffolding")
 	f.String(flagSigner, "", "Label for the message signer (default: creator)")
 	return f
 }
@@ -121,11 +112,6 @@ func flagSetScaffoldType() *flag.FlagSet {
 func flagGetModule(cmd *cobra.Command) string {
 	module, _ := cmd.Flags().GetString(flagModule)
 	return module
-}
-
-func flagGetNoSimulation(cmd *cobra.Command) bool {
-	noMessage, _ := cmd.Flags().GetBool(flagNoSimulation)
-	return noMessage
 }
 
 func flagGetNoMessage(cmd *cobra.Command) bool {

@@ -1,19 +1,19 @@
 ---
-description: Protocol buffer file support.
+description: Protocol buffer file support in Starport
 order: 7
 ---
 
-# Protocol buffer files
+# Protocol Buffer Files
 
 Protocol buffer files define the data structures used by Cosmos SDK modules.
 
-## Files and directories
+## Files and Directories
 
 Inside the `proto` directory, a directory for each custom module contains `query.proto`, `tx.proto`, `genesis.proto`, and other files.
 
 The `starport chain serve` command automatically generates Go code from proto files on every file change.
 
-## Third-party proto files
+## Third-Party Proto Files
 
 Third-party proto files, including those of Cosmos SDK and Tendermint, are bundled with Starport. To import third-party proto files in your custom proto files:
 

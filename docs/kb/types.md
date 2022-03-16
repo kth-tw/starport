@@ -3,11 +3,11 @@ order: 6
 description: Reference list of supported types. 
 ---
 
-# Starport supported types
+# Starport Supported Types
 
-Types with CRUD operations are scaffolded with the `starport scaffold` command.
+Types with CRUD operations are scaffolded with the `starport scaffold` command. 
 
-## Built-in types
+## Built-in Types
 
 | Type         | Alias    | Index | Code Type   | Description                     |
 | ------------ | -------- | ----- | ----------- | ------------------------------- |
@@ -21,11 +21,11 @@ Types with CRUD operations are scaffolded with the `starport scaffold` command.
 | coin         | -        | no    | sdk.Coin    | Cosmos SDK coin type            |
 | array.coin   | coins    | no    | sdk.Coins   | List of Cosmos SDK coin types   |
 
-Some types cannot be used an index, like the map and list indexes and module params.
+You cannot use some types as an index, like the map and list indexes and module params.
 
-## Custom types
+## Custom Types
 
-You can create custom types and then use the custom type later.
+You can create custom types and then use the custom type later. 
 
 For example, you can create a `list` type called `user` and then use the `user` type in a subsequent `starport scaffold` command.
 
@@ -41,7 +41,7 @@ Now you can scaffold a message using the `CoordinatorDescription` type:
 starport scaffold message add-coordinator address:string description:CoordinatorDescription
 ```
 
-Run the chain and then send the message using the CLI.
+Run the chain and then send the message using the CLI. 
 
 To pass the custom type in JSON format:
 

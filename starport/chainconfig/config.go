@@ -9,7 +9,6 @@ import (
 
 	"github.com/goccy/go-yaml"
 	"github.com/imdario/mergo"
-
 	"github.com/tendermint/starport/starport/pkg/xfilepath"
 )
 
@@ -96,10 +95,9 @@ type Validator struct {
 
 // Build holds build configs.
 type Build struct {
-	Main    string   `yaml:"main"`
-	Binary  string   `yaml:"binary"`
-	LDFlags []string `yaml:"ldflags"`
-	Proto   Proto    `yaml:"proto"`
+	Main   string `yaml:"main"`
+	Binary string `yaml:"binary"`
+	Proto  Proto  `yaml:"proto"`
 }
 
 // Proto holds proto build configs.

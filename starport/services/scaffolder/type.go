@@ -6,7 +6,6 @@ import (
 	"strings"
 
 	"github.com/gobuffalo/genny"
-
 	"github.com/tendermint/starport/starport/pkg/multiformatname"
 	"github.com/tendermint/starport/starport/pkg/placeholder"
 	"github.com/tendermint/starport/starport/pkg/xgenny"
@@ -36,9 +35,8 @@ type addTypeOptions struct {
 
 	indexes []string
 
-	withoutMessage    bool
-	withoutSimulation bool
-	signer            string
+	withoutMessage bool
+	signer         string
 }
 
 // newAddTypeOptions returns a addTypeOptions with default options
@@ -95,13 +93,6 @@ func TypeWithFields(fields ...string) AddTypeOption {
 func TypeWithoutMessage() AddTypeOption {
 	return func(o *addTypeOptions) {
 		o.withoutMessage = true
-	}
-}
-
-// TypeWithoutSimulation disables generating messages simulation.
-func TypeWithoutSimulation() AddTypeOption {
-	return func(o *addTypeOptions) {
-		o.withoutSimulation = true
 	}
 }
 
@@ -171,17 +162,16 @@ func (s Scaffolder) AddType(
 	var (
 		g    *genny.Generator
 		opts = &typed.Options{
-			AppName:      s.modpath.Package,
-			AppPath:      s.path,
-			ModulePath:   s.modpath.RawPath,
-			ModuleName:   moduleName,
-			OwnerName:    owner(s.modpath.RawPath),
-			TypeName:     name,
-			Fields:       tFields,
-			NoMessage:    o.withoutMessage,
-			NoSimulation: o.withoutSimulation,
-			MsgSigner:    mfSigner,
-			IsIBC:        isIBC,
+			AppName:    s.modpath.Package,
+			AppPath:    s.path,
+			ModulePath: s.modpath.RawPath,
+			ModuleName: moduleName,
+			OwnerName:  owner(s.modpath.RawPath),
+			TypeName:   name,
+			Fields:     tFields,
+			NoMessage:  o.withoutMessage,
+			MsgSigner:  mfSigner,
+			IsIBC:      isIBC,
 		}
 		gens []*genny.Generator
 	)

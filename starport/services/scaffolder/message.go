@@ -5,7 +5,6 @@ import (
 	"fmt"
 
 	"github.com/gobuffalo/genny"
-
 	"github.com/tendermint/starport/starport/pkg/multiformatname"
 	"github.com/tendermint/starport/starport/pkg/placeholder"
 	"github.com/tendermint/starport/starport/pkg/xgenny"
@@ -17,9 +16,8 @@ import (
 
 // messageOptions represents configuration for the message scaffolding
 type messageOptions struct {
-	description       string
-	signer            string
-	withoutSimulation bool
+	description string
+	signer      string
 }
 
 // newMessageOptions returns a messageOptions with default options
@@ -44,13 +42,6 @@ func WithDescription(desc string) MessageOption {
 func WithSigner(signer string) MessageOption {
 	return func(m *messageOptions) {
 		m.signer = signer
-	}
-}
-
-// WithoutSimulation disables generating messages simulation
-func WithoutSimulation() MessageOption {
-	return func(m *messageOptions) {
-		m.withoutSimulation = true
 	}
 }
 
@@ -115,17 +106,16 @@ func (s Scaffolder) AddMessage(
 	var (
 		g    *genny.Generator
 		opts = &message.Options{
-			AppName:      s.modpath.Package,
-			AppPath:      s.path,
-			ModulePath:   s.modpath.RawPath,
-			ModuleName:   moduleName,
-			OwnerName:    owner(s.modpath.RawPath),
-			MsgName:      name,
-			Fields:       parsedMsgFields,
-			ResFields:    parsedResFields,
-			MsgDesc:      scaffoldingOpts.description,
-			MsgSigner:    mfSigner,
-			NoSimulation: scaffoldingOpts.withoutSimulation,
+			AppName:    s.modpath.Package,
+			AppPath:    s.path,
+			ModulePath: s.modpath.RawPath,
+			ModuleName: moduleName,
+			OwnerName:  owner(s.modpath.RawPath),
+			MsgName:    name,
+			Fields:     parsedMsgFields,
+			ResFields:  parsedResFields,
+			MsgDesc:    scaffoldingOpts.description,
+			MsgSigner:  mfSigner,
 		}
 	)
 

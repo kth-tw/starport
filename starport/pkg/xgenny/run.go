@@ -9,7 +9,6 @@ import (
 	"github.com/gobuffalo/genny"
 	"github.com/gobuffalo/logger"
 	"github.com/gobuffalo/packd"
-
 	"github.com/tendermint/starport/starport/pkg/placeholder"
 	"github.com/tendermint/starport/starport/pkg/validation"
 )

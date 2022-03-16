@@ -6,7 +6,6 @@ import (
 	"strings"
 
 	"github.com/gobuffalo/genny"
-
 	"github.com/tendermint/starport/starport/pkg/placeholder"
 	"github.com/tendermint/starport/starport/pkg/xgenny"
 	"github.com/tendermint/starport/starport/templates/typed"
@@ -21,24 +20,13 @@ func NewStargate(replacer placeholder.Replacer, opts *Options) (*genny.Generator
 	g.RunFn(protoTxMessageModify(replacer, opts))
 	g.RunFn(typesCodecModify(replacer, opts))
 	g.RunFn(clientCliTxModify(replacer, opts))
+	g.RunFn(moduleSimulationModify(replacer, opts))
 
 	template := xgenny.NewEmbedWalker(
-		fsStargateMessage,
-		"stargate/message",
+		fsStargate,
+		"stargate/",
 		opts.AppPath,
 	)
-
-	if !opts.NoSimulation {
-		g.RunFn(moduleSimulationModify(replacer, opts))
-		simappTemplate := xgenny.NewEmbedWalker(
-			fsStargateSimapp,
-			"stargate/simapp",
-			opts.AppPath,
-		)
-		if err := Box(simappTemplate, opts, g); err != nil {
-			return nil, err
-		}
-	}
 	return g, Box(template, opts, g)
 }
 

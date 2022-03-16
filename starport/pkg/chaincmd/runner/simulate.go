@@ -5,7 +5,6 @@ import (
 	"os"
 
 	"github.com/cosmos/cosmos-sdk/types/simulation"
-
 	"github.com/tendermint/starport/starport/pkg/chaincmd"
 )
 

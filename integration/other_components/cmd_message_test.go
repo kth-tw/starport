@@ -48,7 +48,6 @@ func TestGenerateAnAppWithMessage(t *testing.T) {
 				"foo,bar:int,foobar:bool",
 				"--path",
 				"blog",
-				"--no-simulation",
 			),
 			step.Workdir(filepath.Dir(path)),
 		)),

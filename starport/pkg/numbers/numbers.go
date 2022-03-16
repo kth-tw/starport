@@ -2,6 +2,7 @@ package numbers
 
 import (
 	"fmt"
+	"sort"
 	"strconv"
 	"strings"
 )
@@ -62,7 +63,7 @@ func ParseList(arg string) ([]uint64, error) {
 				return nil, err
 			}
 			if start > end {
-				return nil, fmt.Errorf("cannot parse a reverse ordering range: %s", trimmedRange)
+				start, end = end, start
 			}
 			for ; start <= end; start++ {
 				if _, ok := listNumbers[start]; ok {
@@ -75,6 +76,9 @@ func ParseList(arg string) ([]uint64, error) {
 			return nil, fmt.Errorf("cannot parse the number range: %s", trimmedRange)
 		}
 	}
+	sort.Slice(result, func(i, j int) bool {
+		return result[i] < result[j]
+	})
 	return result, nil
 }
 

@@ -7,7 +7,6 @@ import (
 
 	"github.com/cosmos/go-bip39"
 	"github.com/spf13/cobra"
-
 	"github.com/tendermint/starport/starport/pkg/cliquiz"
 	"github.com/tendermint/starport/starport/pkg/cosmosaccount"
 )

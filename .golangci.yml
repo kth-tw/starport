@@ -17,7 +17,7 @@ linters:
     - gocritic
     - gofmt
     - goimports
-    - revive
+    - golint
     # - gosec
     - gosimple
     - govet

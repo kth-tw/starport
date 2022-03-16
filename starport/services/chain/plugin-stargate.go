@@ -6,7 +6,6 @@ import (
 	"path/filepath"
 
 	"github.com/pelletier/go-toml"
-
 	"github.com/tendermint/starport/starport/chainconfig"
 	"github.com/tendermint/starport/starport/pkg/chaincmd"
 	chaincmdrunner "github.com/tendermint/starport/starport/pkg/chaincmd/runner"

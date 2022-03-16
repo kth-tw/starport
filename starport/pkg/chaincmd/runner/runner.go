@@ -9,7 +9,6 @@ import (
 
 	"github.com/ghodss/yaml"
 	"github.com/pkg/errors"
-
 	"github.com/tendermint/starport/starport/pkg/chaincmd"
 	"github.com/tendermint/starport/starport/pkg/cmdrunner"
 	"github.com/tendermint/starport/starport/pkg/cmdrunner/step"

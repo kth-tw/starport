@@ -9,7 +9,6 @@ import (
 	"strings"
 
 	"github.com/pkg/errors"
-
 	"github.com/tendermint/starport/starport/pkg/cmdrunner"
 	"github.com/tendermint/starport/starport/pkg/cmdrunner/step"
 )
@@ -57,7 +56,7 @@ func Exec(ctx context.Context, fullCommand []string, options ...Option) error {
 	if err != nil {
 		return &Error{
 			Err:                   errors.Wrap(err, errb.String()),
-			Command:               strings.Join(fullCommand, " "),
+			Command:               fullCommand[0],
 			StdLogs:               logs.String(),
 			includeStdLogsToError: c.includeStdLogsToError,
 		}

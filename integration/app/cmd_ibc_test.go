@@ -7,7 +7,7 @@ import (
 	"path/filepath"
 	"testing"
 
-	envtest "github.com/tendermint/starport/integration"
+	"github.com/tendermint/starport/integration"
 	"github.com/tendermint/starport/starport/pkg/cmdrunner/step"
 )
 

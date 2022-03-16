@@ -4,7 +4,6 @@ import (
 	"fmt"
 
 	"github.com/spf13/cobra"
-
 	"github.com/tendermint/starport/starport/pkg/clispinner"
 	"github.com/tendermint/starport/starport/pkg/placeholder"
 	"github.com/tendermint/starport/starport/services/scaffolder"
@@ -24,7 +23,6 @@ func NewScaffoldMessage() *cobra.Command {
 	flagSetPath(c)
 	c.Flags().String(flagModule, "", "Module to add the message into. Default: app's main module")
 	c.Flags().StringSliceP(flagResponse, "r", []string{}, "Response fields")
-	c.Flags().Bool(flagNoSimulation, false, "Disable CRUD simulation scaffolding")
 	c.Flags().StringP(flagDescription, "d", "", "Description of the command")
 	c.Flags().String(flagSigner, "", "Label for the message signer (default: creator)")
 
@@ -33,12 +31,11 @@ func NewScaffoldMessage() *cobra.Command {
 
 func messageHandler(cmd *cobra.Command, args []string) error {
 	var (
-		module, _         = cmd.Flags().GetString(flagModule)
-		resFields, _      = cmd.Flags().GetStringSlice(flagResponse)
-		desc, _           = cmd.Flags().GetString(flagDescription)
-		signer            = flagGetSigner(cmd)
-		appPath           = flagGetPath(cmd)
-		withoutSimulation = flagGetNoSimulation(cmd)
+		module, _    = cmd.Flags().GetString(flagModule)
+		resFields, _ = cmd.Flags().GetStringSlice(flagResponse)
+		desc, _      = cmd.Flags().GetString(flagDescription)
+		signer       = flagGetSigner(cmd)
+		appPath      = flagGetPath(cmd)
 	)
 
 	s := clispinner.New().SetText("Scaffolding...")
@@ -54,11 +51,6 @@ func messageHandler(cmd *cobra.Command, args []string) error {
 	// Get signer
 	if signer != "" {
 		options = append(options, scaffolder.WithSigner(signer))
-	}
-
-	// Skip scaffold simulation
-	if withoutSimulation {
-		options = append(options, scaffolder.WithoutSimulation())
 	}
 
 	sc, err := newApp(appPath)

@@ -5,7 +5,6 @@ import (
 	"context"
 
 	"github.com/pkg/errors"
-
 	"github.com/tendermint/starport/starport/pkg/cmdrunner"
 	"github.com/tendermint/starport/starport/pkg/cmdrunner/step"
 )

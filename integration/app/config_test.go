@@ -9,8 +9,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/require"
-
-	envtest "github.com/tendermint/starport/integration"
+	"github.com/tendermint/starport/integration"
 	"github.com/tendermint/starport/starport/chainconfig"
 	"github.com/tendermint/starport/starport/pkg/confile"
 	"github.com/tendermint/starport/starport/pkg/randstr"

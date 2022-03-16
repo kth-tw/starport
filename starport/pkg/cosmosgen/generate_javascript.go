@@ -7,8 +7,6 @@ import (
 	"strings"
 
 	"github.com/iancoleman/strcase"
-	"golang.org/x/sync/errgroup"
-
 	"github.com/tendermint/starport/starport/pkg/cosmosanalysis/module"
 	"github.com/tendermint/starport/starport/pkg/giturl"
 	"github.com/tendermint/starport/starport/pkg/gomodulepath"
@@ -18,6 +16,7 @@ import (
 	"github.com/tendermint/starport/starport/pkg/nodetime/programs/tsc"
 	"github.com/tendermint/starport/starport/pkg/protoc"
 	"github.com/tendermint/starport/starport/pkg/xstrings"
+	"golang.org/x/sync/errgroup"
 )
 
 var (
@@ -49,7 +48,11 @@ func (g *generator) generateJS() error {
 		return err
 	}
 
-	return jsg.generateVuexModuleLoader()
+	if err := jsg.generateVuexModuleLoader(); err != nil {
+		return err
+	}
+
+	return nil
 }
 
 func (g *jsGenerator) generateModules() error {

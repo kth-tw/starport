@@ -1,4 +1,4 @@
-package networktypes_test
+package network
 
 import (
 	"fmt"
@@ -7,11 +7,9 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/stretchr/testify/require"
 	launchtypes "github.com/tendermint/spn/x/launch/types"
-
-	"github.com/tendermint/starport/starport/services/network/networktypes"
 )
 
-func TestVerifyAddValidatorRequest(t *testing.T) {
+func TestBuilderVerifyAddValidatorRequest(t *testing.T) {
 	gentx := []byte(`{
   "body": {
     "messages": [
@@ -44,9 +42,22 @@ func TestVerifyAddValidatorRequest(t *testing.T) {
 					GenTx:          gentx,
 					ConsPubKey:     []byte("aeQLCJOjXUyB7evOodI4mbrshIt3vhHGlycJDbUkaMs="),
 					SelfDelegation: sdk.NewCoin("stake", sdk.NewInt(95000000)),
-					Peer:           launchtypes.NewPeerConn("nodeid", "127.163.0.1:2446"),
+					Peer:           "nodeid@127.163.0.1:2446",
 				},
 			},
+		},
+		{
+			name: "invalid peer node id",
+			req: &launchtypes.RequestContent_GenesisValidator{
+				GenesisValidator: &launchtypes.GenesisValidator{
+					Address:        "spn1dd246yq6z5vzjz9gh8cff46pll75yyl8c5tt7g",
+					GenTx:          gentx,
+					ConsPubKey:     []byte("aeQLCJOjXUyB7evOodI4mbrshIt3vhHGlycJDbUkaMs="),
+					SelfDelegation: sdk.NewCoin("stake", sdk.NewInt(95000000)),
+					Peer:           "@127.163.0.1:2446",
+				},
+			},
+			want: fmt.Errorf("the peer @127.163.0.1:2446 doesn't match the peer format <node-id>@<host>"),
 		},
 		{
 			name: "invalid peer host",
@@ -56,10 +67,10 @@ func TestVerifyAddValidatorRequest(t *testing.T) {
 					GenTx:          gentx,
 					ConsPubKey:     []byte("aeQLCJOjXUyB7evOodI4mbrshIt3vhHGlycJDbUkaMs="),
 					SelfDelegation: sdk.NewCoin("stake", sdk.NewInt(95000000)),
-					Peer:           launchtypes.NewPeerConn("nodeid", "122.114.800.11"),
+					Peer:           "nodeid@",
 				},
 			},
-			want: fmt.Errorf("the peer address id:\"nodeid\" tcpAddress:\"122.114.800.11\"  doesn't match the peer format <host>:<port>"),
+			want: fmt.Errorf("the peer nodeid@ doesn't match the peer format <node-id>@<host>"),
 		},
 		{
 			name: "invalid gentx",
@@ -69,7 +80,7 @@ func TestVerifyAddValidatorRequest(t *testing.T) {
 					GenTx:          []byte(`{}`),
 					ConsPubKey:     []byte("aeQLCJOjXUyB7evOodI4mbrshIt3vhHGlycJDbUkaMs="),
 					SelfDelegation: sdk.NewCoin("stake", sdk.NewInt(95000000)),
-					Peer:           launchtypes.NewPeerConn("nodeid", "127.163.0.1:2446"),
+					Peer:           "nodeid@127.163.0.1:2446",
 				},
 			},
 			want: fmt.Errorf("cannot parse gentx the gentx cannot be parsed"),
@@ -82,7 +93,7 @@ func TestVerifyAddValidatorRequest(t *testing.T) {
 					GenTx:          gentx,
 					ConsPubKey:     []byte("aeQLCJOjXUyB7evOodI4mbrshIt3vhHGlycJDbUkaMs="),
 					SelfDelegation: sdk.NewCoin("foo", sdk.NewInt(95000000)),
-					Peer:           launchtypes.NewPeerConn("nodeid", "127.163.0.1:2446"),
+					Peer:           "nodeid@127.163.0.1:2446",
 				},
 			},
 			want: fmt.Errorf("the self delegation 95000000foo doesn't match the one inside the gentx 95000000stake"),
@@ -95,7 +106,7 @@ func TestVerifyAddValidatorRequest(t *testing.T) {
 					GenTx:          gentx,
 					ConsPubKey:     []byte("aeQLCJOjXUyB7evOodI4mbrshIt3vhHGlycJDbUkaMs="),
 					SelfDelegation: sdk.NewCoin("stake", sdk.NewInt(3)),
-					Peer:           launchtypes.NewPeerConn("nodeid", "127.163.0.1:2446"),
+					Peer:           "nodeid@127.163.0.1:2446",
 				},
 			},
 			want: fmt.Errorf("the self delegation 3stake doesn't match the one inside the gentx 95000000stake"),
@@ -108,7 +119,7 @@ func TestVerifyAddValidatorRequest(t *testing.T) {
 					GenTx:          gentx,
 					ConsPubKey:     []byte("cosmos1gkheudhhjsvq0s8fxt7p6pwe0k3k30kepcnz9p="),
 					SelfDelegation: sdk.NewCoin("stake", sdk.NewInt(95000000)),
-					Peer:           launchtypes.NewPeerConn("nodeid", "127.163.0.1:2446"),
+					Peer:           "nodeid@127.163.0.1:2446",
 				},
 			},
 			want: fmt.Errorf("the consensus pub key cosmos1gkheudhhjsvq0s8fxt7p6pwe0k3k30kepcnz9p= doesn't match the one inside the gentx aeQLCJOjXUyB7evOodI4mbrshIt3vhHGlycJDbUkaMs="),
@@ -121,7 +132,7 @@ func TestVerifyAddValidatorRequest(t *testing.T) {
 					GenTx:          gentx,
 					ConsPubKey:     []byte("aeQLCJOjXUyB7evOodI4mbrshIt3vhHGlycJDbUkaMs="),
 					SelfDelegation: sdk.NewCoin("stake", sdk.NewInt(95000000)),
-					Peer:           launchtypes.NewPeerConn("nodeid", "127.163.0.1:2446"),
+					Peer:           "nodeid@127.163.0.1:2446",
 				},
 			},
 			want: fmt.Errorf("the validator address spn1gkheudhhjsvq0s8fxt7p6pwe0k3k30keaytytm doesn't match the one inside the gentx spn1dd246yq6z5vzjz9gh8cff46pll75yyl8c5tt7g"),
@@ -129,7 +140,8 @@ func TestVerifyAddValidatorRequest(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			err := networktypes.VerifyAddValidatorRequest(tt.req)
+			n := Network{}
+			err := n.verifyAddValidatorRequest(tt.req)
 			if tt.want != nil {
 				require.Error(t, err)
 				require.Equal(t, tt.want.Error(), err.Error())

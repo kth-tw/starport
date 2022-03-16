@@ -5,10 +5,9 @@ import (
 	"errors"
 	"path/filepath"
 
-	"golang.org/x/mod/module"
-
 	"github.com/tendermint/starport/starport/pkg/gomodule"
 	"github.com/tendermint/starport/starport/pkg/xfilepath"
+	"golang.org/x/mod/module"
 )
 
 var (

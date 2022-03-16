@@ -47,16 +47,7 @@ func TestCreateMapWithStargate(t *testing.T) {
 
 	env.Must(env.Exec("create a list",
 		step.NewSteps(step.New(
-			step.Exec(
-				"starport",
-				"s",
-				"list",
-				"user",
-				"email",
-				"--module",
-				"example",
-				"--no-simulation",
-			),
+			step.Exec("starport", "s", "list", "user", "email", "--module", "example"),
 			step.Workdir(path),
 		)),
 	))

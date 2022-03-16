@@ -1,14 +1,15 @@
-name: Release Binaries
+name: Release
 
 on:
-  release:
-    types: [ published ]
+  push:
+    tags:
+      - "*"
 
 jobs:
   binary:
     runs-on: ubuntu-latest
     env:
-      working-directory: go/src/github.com/tendermint/starport
+      working-directory: go/src/github.com/tendermint/starport 
     
     steps:
       - name: Set up Go

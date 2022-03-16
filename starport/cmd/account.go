@@ -5,7 +5,6 @@ import (
 
 	"github.com/spf13/cobra"
 	flag "github.com/spf13/pflag"
-
 	"github.com/tendermint/starport/starport/pkg/cliquiz"
 	"github.com/tendermint/starport/starport/pkg/cosmosaccount"
 	"github.com/tendermint/starport/starport/pkg/entrywriter"

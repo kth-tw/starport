@@ -1,4 +1,4 @@
-# Starport article templates
+# Starport Article Templates
 
 Use these templates along with our style guide to help you create articles for the Starport community. 
 

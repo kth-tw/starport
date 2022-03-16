@@ -2,7 +2,6 @@ package starportcmd
 
 import (
 	"github.com/spf13/cobra"
-
 	"github.com/tendermint/starport/starport/services/network"
 )
 
@@ -20,7 +19,7 @@ func NewNetworkChainLaunch() *cobra.Command {
 		RunE:  networkChainLaunchHandler,
 	}
 
-	c.Flags().Duration(flagRemainingTime, 0, "Duration of time in seconds before the chain is effectively launched")
+	c.Flags().Duration(flagRemainingTime, 0, "The remaining time for validator preparation before the chain is effectively launched")
 	c.Flags().AddFlagSet(flagNetworkFrom())
 	c.Flags().AddFlagSet(flagSetKeyringBackend())
 
@@ -35,7 +34,7 @@ func networkChainLaunchHandler(cmd *cobra.Command, args []string) error {
 	defer nb.Cleanup()
 
 	// parse launch ID
-	launchID, err := network.ParseID(args[0])
+	launchID, err := network.ParseLaunchID(args[0])
 	if err != nil {
 		return err
 	}

@@ -49,7 +49,6 @@ func TestGenerateAnAppWithStargateWithListAndVerify(t *testing.T) {
 				"textCoin:coin",
 				"textCoins:array.coin",
 				"textCoinsAlias:coins",
-				"--no-simulation",
 			),
 			step.Workdir(path),
 		)),

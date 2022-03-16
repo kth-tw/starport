@@ -8,14 +8,12 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"github.com/tendermint/starport/integration"
 	"net/http"
 	"testing"
 
-	envtest "github.com/tendermint/starport/integration"
-
 	"github.com/pkg/errors"
 	"github.com/stretchr/testify/require"
-
 	"github.com/tendermint/starport/starport/pkg/cmdrunner"
 	"github.com/tendermint/starport/starport/pkg/cmdrunner/step"
 	"github.com/tendermint/starport/starport/pkg/randstr"

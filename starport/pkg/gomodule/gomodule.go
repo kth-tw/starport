@@ -11,11 +11,10 @@ import (
 	"os"
 	"path/filepath"
 
-	"golang.org/x/mod/modfile"
-	"golang.org/x/mod/module"
-
 	"github.com/tendermint/starport/starport/pkg/cmdrunner"
 	"github.com/tendermint/starport/starport/pkg/cmdrunner/step"
+	"golang.org/x/mod/modfile"
+	"golang.org/x/mod/module"
 )
 
 // ErrGoModNotFound returned when go.mod file cannot be found for an app.

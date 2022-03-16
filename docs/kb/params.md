@@ -1,9 +1,9 @@
 ---
 order: 15
-description: Scaffold module parameters to be accessible to the module.
+description: Module Parameters
 ---
 
-# Module parameters
+# Module Parameters
 
 Sometimes you need to set default parameters for a module. The Cosmos SDK [params package](https://docs.cosmos.network/master/modules/params) provides a globally available parameter that is saved into the key-value store. 
 
@@ -17,13 +17,13 @@ To scaffold a module with params using the `--params` flag:
 starport scaffold module launch --params minLaunch:uint,maxLaunch:int
 ```
 
-After the parameters are scaffolded, change the `x/<module>/types/params.go` file to set the default values and validate the fields. 
+After the parameters are scaffolded, change the `x/<module>/types/params.go` file to set the default values and validate the field. 
 
 The params module supports all [built-in Starport types](types.md).
 
-## Params types
+## Params Types
 
-| Type   | Code type | Description             |
+| Type   | Code Type | Description             |
 | ------ | --------- | ----------------------- |
 | string | string    | Text type               |
 | bool   | bool      | Boolean type            |
